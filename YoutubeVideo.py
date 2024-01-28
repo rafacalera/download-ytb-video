@@ -26,7 +26,7 @@ class YoutubeVideo:
             return self.app()
 
         try:
-            self.youtubeObject.download("./videos/", self.youtubeObject.title + ".mp3" if option == "3" else ".mp4")
+            self.youtubeObject.download("./videos/", self.youtubeObject.title + ".mp3" if option == "3" else self.youtubeObject.title + ".mp4")
             print("\nDownload is completed successfully")
             
             other_video = input("\nDo you want to download another video? (y/n): ")
