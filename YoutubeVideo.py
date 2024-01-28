@@ -9,24 +9,30 @@ class YoutubeVideo:
 
     def set_youtube_link(self, link):
         try:
-            self.youtubeObject = YouTube(link)
-        except:
-            self.error()
+            self.youtube_object = YouTube(link)
+        except Exception as error:
+            self.error(error)
 
+    def filtrar_caracteres_especiais(self, string):
+        caracteres_proibidos = r'<>:"/\|?*'
+        resultado = ''.join(caracter for caracter in string if caracter not in caracteres_proibidos)
+        return resultado
 
     def download(self, option):
-        if option == "1":
-            self.youtubeObject = self.youtubeObject.streams.get_highest_resolution()
-        elif option == "2":
-            self.youtubeObject = self.youtubeObject.streams.get_lowest_resolution()
-        elif option == "3":
-            self.youtubeObject = self.youtubeObject.streams.get_audio_only()
-        else:
-            print("\nInvalid Option")
-            return self.app()
-
         try:
-            self.youtubeObject.download("./videos/", self.youtubeObject.title + ".mp3" if option == "3" else self.youtubeObject.title + ".mp4")
+            match option:
+                case "1":
+                    self.youtube_object = self.youtube_object.streams.get_highest_resolution()
+                case "2":
+                    self.youtube_object = self.youtube_object.streams.get_lowest_resolution()
+                case "3":
+                    self.youtube_object = self.youtube_object.streams.get_audio_only()
+
+            filename = self.filtrar_caracteres_especiais(self.youtube_object.title) + ".mp4"
+            if option == "3":
+                filename = self.filtrar_caracteres_especiais(self.youtube_object.title) + ".mp3"
+
+            self.youtube_object.download("./videos", filename)
             print("\nDownload is completed successfully")
             
             other_video = input("\nDo you want to download another video? (y/n): ")
@@ -35,9 +41,9 @@ class YoutubeVideo:
                 return self.app()
             else:
                 return
-        except:
-            self.error()
+        except Exception as error:
+            self.error(error)
         
-    def error(self):
-        print("\nAn error has occurred")
+    def error(self, error):
+        print("\nAn error has occurred:\n", error, "\n")
         return self.app()

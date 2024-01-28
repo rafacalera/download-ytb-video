@@ -1,13 +1,22 @@
 from YoutubeVideo import YoutubeVideo
 
-def App():
-    link = input("\nEnter the YouTube video URL: ")
-    youtube_video = YoutubeVideo(link, App)
 
+def ask_resolution():
     resolution = input("\nEnter the option: \n\nhighest resolution (1),\nlowest resolution (2)\n or \naudio only (3):\n\n")
+    if resolution not in ["1", "2", "3"]:
+        print("\nInvalid Option")
+        return ask_resolution()
+    return resolution
+
+
+def app():
+    link = input("\nEnter the YouTube video URL: ")
+    youtube_video = YoutubeVideo(link, app)
+    
+    resolution = ask_resolution()
     youtube_video.download(resolution)
 
-App()
+app()
 
 
 # def Download(link, resolution):
