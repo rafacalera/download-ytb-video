@@ -2,9 +2,9 @@ from YoutubeVideo import YoutubeVideo
 
 def App():
     link = input("\nEnter the YouTube video URL: ")
-    resolution = input("\nEnter the option: \n\nhighest resolution (1),\nlowest resolution (2)\n or \naudio only (3):\n\n")
-
     youtube_video = YoutubeVideo(link, App)
+
+    resolution = input("\nEnter the option: \n\nhighest resolution (1),\nlowest resolution (2)\n or \naudio only (3):\n\n")
     youtube_video.download(resolution)
 
 App()
@@ -25,4 +25,4 @@ App()
 #         youtubeObject.download("./videos/", youtubeObject.title+".mp4")
 #     except:
 #         print("An error has occurred")
-#     print("Download is completed successfully")
+#     print("Download is completed successfully")4
